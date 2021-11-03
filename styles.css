@@ -68,7 +68,7 @@ h2 {
   padding: 1.5vmin;
   width: 80vmin;
   height: 80vmin;
-  background-color: lightcoral;
+  background-color: #dbd7d2;
   border: 2px solid black;
   border-radius: 0.4em;
   /* grid-template-rows: repeat(4, 1fr);
@@ -93,13 +93,11 @@ h2 {
   border-radius: 0.4em;
 }
 
-.tile-with-number {
+.tile-new,
+.tile-merged {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  background-color: black;
-  color: snow;
 
   width: 100%;
   height: 100%;
@@ -109,6 +107,99 @@ h2 {
   font-size: 2em;
 }
 
+.tile-merged {
+  animation: showOnMerge 200ms linear;
+}
+
+@keyframes showOnMerge {
+  0% {
+    transform: scale(1);
+    /* font-size: scale(1); */
+  }
+  50% {
+    transform: scale(1.15);
+    /* font-size: scale(1.1); */
+  }
+  100% {
+    transform: scale(1);
+    /* font-size: scale(1); */
+  }
+}
+
+.tile-new {
+  animation: showOnAdd 100ms ease-in-out;
+}
+
+@keyframes showOnAdd {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.tile-2 {
+  background-color: lightcoral;
+  color: snow;
+}
+.tile-4 {
+  background: bisque;
+  color: burlywood;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0),
+    inset 0 0 0 1px rgba(255, 255, 255, 0);
+}
+.tile-8 {
+  color: #f9f6f2;
+  background: #f3b27a;
+}
+.tile-16 {
+  color: #f9f6f2;
+  background: #f69664;
+}
+.tile-32 {
+  color: #f9f6f2;
+  background: #f77c5f;
+}
+.tile-64 {
+  color: #f9f6f2;
+  background: #f75f3b;
+}
+.tile-128 {
+  color: #f9f6f2;
+  background: #edd073;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2380952381),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1428571429);
+}
+
+.tile-256 {
+  color: #f9f6f2;
+  background: #edcc62;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3174603175),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1904761905);
+}
+
+.tile-512 {
+  color: #f9f6f2;
+  background: #edc950;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3968253968),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2380952381);
+}
+
+.tile-1024 {
+  color: #f9f6f2;
+  background: #edc53f;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.4761904762),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2857142857);
+}
+
+.tile-2048 .tile-inner {
+  color: #f9f6f2;
+  background: #edc22e;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.5555555556),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3333333333);
+}
 /*styles for pop-ups*/
 
 .overlay {
@@ -135,7 +226,6 @@ h2 {
   top: 25vh;
   left: 25vw;
   z-index: 101;
-  transition: opacity 6000ms;
 
   background-color: white;
   padding: 2vmin;
@@ -151,6 +241,15 @@ h2 {
   animation-fill-mode: forwards;
 }
 
+@keyframes showWinPopup {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
 .for-call-popup {
   display: none;
 }
@@ -164,13 +263,4 @@ h2 {
 
 .popup-close-btn:hover {
   opacity: 1;
-}
-
-@keyframes showWinPopup {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 0.8;
-  }
 }

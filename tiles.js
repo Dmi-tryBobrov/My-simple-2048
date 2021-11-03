@@ -28,8 +28,7 @@ function initializeField(){
     
     let row = positionsAll.get(positionsFree[index])[0];
     let col = positionsAll.get(positionsFree[index])[1];
-    // positionsFree.splice(index, 1);
-    // positionsOccupied.set([row, col].toString(), true);
+    
     let tileText;
     if(Math.random() < CHANCE_TO_GET_4)
         tileText = "4";
@@ -165,7 +164,8 @@ function moveLeft(){
 function setNewTile(row, col, tileText="2"){
     let startTile = document.createElement("div");
     startTile.textContent = tileText;
-    startTile.setAttribute("class", "tile-with-number");
+    startTile.setAttribute("class", "tile-new");
+    startTile.classList.add("tile-"+tileText);
     rows[row].children[col].appendChild(startTile);
 
     positionsOccupied.set([row, col].toString(), true);
@@ -173,7 +173,7 @@ function setNewTile(row, col, tileText="2"){
 
 function removeTile(row, col){
     while(rows[row].children[col].hasChildNodes())
-        rows[row].children[col].removeChild(rows[row].children[col].firstChild);
+      rows[row].children[col].removeChild(rows[row].children[col].firstChild);
     
     positionsOccupied.set([row, col].toString(), false);
 }
@@ -193,7 +193,8 @@ function mergeTiles(row, col){
     let value = rows[row].children[col].textContent;
     let startTile = document.createElement("div");
     startTile.textContent = (parseInt(value)*2).toString();
-    startTile.setAttribute("class", "tile-with-number");
+    startTile.setAttribute("class", "tile-merged");
+    startTile.classList.add("tile-"+(parseInt(value)*2).toString());
     rows[row].children[col].replaceChild(startTile, rows[row].children[col].firstChild);
 
     positionsOccupied.set([row, col].toString(), true);
@@ -202,7 +203,8 @@ function mergeTiles(row, col){
 function changeTilePosition(row, col, text){
     let newTile = document.createElement("div");
     newTile.textContent = text;
-    newTile.setAttribute("class", "tile-with-number");
+    newTile.setAttribute("class", "tile-new");
+    newTile.classList.add("tile-"+text);
     rows[row].children[col].appendChild(newTile);
 
     positionsOccupied.set([row, col].toString(), true);
