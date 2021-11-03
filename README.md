@@ -1,0 +1,15 @@
+<h1> Simple 2048 game </h1>
+<div>
+<p> This is a pet project for Front-End training. <br>
+Original game can be found <a href="https://play2048.co/"> here </a>.</p>
+<p> Current version features & limitations: </p>
+<ul>
+    <li>Almost the same as the original, but still</li>
+    <li>10% chance that a new tile has 4 in it</li>
+    <li>Tiles of one color</li>
+    <li>No animations</li>
+    <li>No pop-up msg shows when all moves are exhausted</li>
+    <li>Not yet for touch screens</li>
+    <li>Pop-up with congratulations upon reaching 2048 tile</li>
+</ul>
+</div>

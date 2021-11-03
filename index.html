@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <title>My 2048</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- LOCAL OR Google CDN?-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="jquery-3.6.0.min.js"></script> -->
+
+    <script src="main.js" defer type="module"></script>
+  </head>
+  <body>
+    <main class="mainframe">
+      <div class="game-title">
+        <h2>
+          My primitive<br />
+          <strong>2048</strong>
+        </h2>
+      </div>
+      <div class="intro">
+        <div>
+          <p>Try to get to <strong>2048!</strong></p>
+        </div>
+        <div>
+          <button class="button-new-game">New Game</button>
+        </div>
+      </div>
+      <div class="game-field" y="0">
+        <div class="row">
+          <div class="tile" x="0"></div>
+          <div class="tile" x="1"></div>
+          <div class="tile" x="2"></div>
+          <div class="tile" x="3"></div>
+        </div>
+
+        <div class="row" y="1">
+          <div class="tile" x="0"></div>
+          <div class="tile" x="1"></div>
+          <div class="tile" x="2"></div>
+          <div class="tile" x="3"></div>
+        </div>
+
+        <div class="row" y="2">
+          <div class="tile" x="0"></div>
+          <div class="tile" x="1"></div>
+          <div class="tile" x="2"></div>
+          <div class="tile" x="3"></div>
+        </div>
+
+        <div class="row" y="3">
+          <div class="tile" x="0"></div>
+          <div class="tile" x="1"></div>
+          <div class="tile" x="2"></div>
+          <div class="tile" x="3"></div>
+        </div>
+      </div>
+
+      <div class="game-rules">
+        <p>
+          <strong>HOW TO PLAY</strong>: Use your <b>W, A, S, D</b> buttons or
+          arrow keys to move the tiles. Tiles with the same number merge into
+          one when they touch. Add them up to reach 2048!
+        </p>
+      </div>
+
+      <!-- pop-up windows go here-->
+
+      <div class="popup">
+        <div class="popup-close-btn">
+          <span class="material-icons"> clear </span>
+        </div>
+        <div class="popup-content">
+          <p>
+            <strong>Congratulations!</strong> You score is
+            <strong>2048!</strong>
+          </p>
+        </div>
+        <button class="try-again">Try Again!</button>
+      </div>
+
+      <div class="overlay"></div>
+    </main>
+  </body>
+</html>
