@@ -1,3 +1,5 @@
+# My-simple-2048
+
 <h1> Simple 2048 game </h1>
 <div>
 <p> This is a pet project for Front-End training. <br>
