@@ -1,11 +1,10 @@
-@charset "UTF-8";
-
 /*Inheriting box-sizing, fancy way
  *https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
  */
 html {
   box-sizing: border-box;
 }
+
 *,
 *::before,
 *::after {
@@ -22,14 +21,6 @@ body {
   font-size: 18px;
 }
 
-.mainframe {
-  position: relative;
-  margin: 0 auto;
-  width: 80vmin;
-  display: flex;
-  flex-flow: column wrap;
-}
-
 .intro {
   display: flex;
   justify-content: space-between;
@@ -44,22 +35,28 @@ button {
   font-weight: bold;
   padding: 0.3em 0.9em;
 }
-
 button:hover {
   background: burlywood;
-}
-
-h2 strong {
-  font-size: 3em;
 }
 
 h2 {
   text-align: center;
   vertical-align: bottom;
 }
+h2 strong {
+  font-size: 3em;
+}
 
 .game-title {
   align-self: flex-start;
+}
+
+.mainframe {
+  position: relative;
+  margin: 0 auto;
+  width: 80vmin;
+  display: flex;
+  flex-flow: column wrap;
 }
 
 .game-field {
@@ -71,20 +68,15 @@ h2 {
   background-color: #dbd7d2;
   border: 2px solid black;
   border-radius: 0.4em;
-  /* grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(4, 1fr); */
 }
-
 .game-field .row {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-
   width: 100%;
   height: 25%;
 }
-
-.row .tile {
+.game-field .row .tile {
   display: flex;
   background-color: snow;
   width: 20%;
@@ -98,12 +90,10 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 100%;
   height: 100%;
   border: inherit;
   border-radius: inherit;
-
   font-size: 2em;
 }
 
@@ -125,7 +115,6 @@ h2 {
     /* font-size: scale(1); */
   }
 }
-
 .tile-new {
   animation: showOnAdd 100ms ease-in-out;
 }
@@ -144,89 +133,85 @@ h2 {
   background-color: lightcoral;
   color: snow;
 }
+
 .tile-4 {
   background: bisque;
   color: burlywood;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0),
-    inset 0 0 0 1px rgba(255, 255, 255, 0);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
+
 .tile-8 {
   color: #f9f6f2;
   background: #f3b27a;
 }
+
 .tile-16 {
   color: #f9f6f2;
   background: #f69664;
 }
+
 .tile-32 {
   color: #f9f6f2;
   background: #f77c5f;
 }
+
 .tile-64 {
   color: #f9f6f2;
   background: #f75f3b;
 }
+
 .tile-128 {
   color: #f9f6f2;
   background: #edd073;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2380952381),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1428571429);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2380952381), inset 0 0 0 1px rgba(255, 255, 255, 0.1428571429);
 }
 
 .tile-256 {
   color: #f9f6f2;
   background: #edcc62;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3174603175),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1904761905);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3174603175), inset 0 0 0 1px rgba(255, 255, 255, 0.1904761905);
 }
 
 .tile-512 {
   color: #f9f6f2;
   background: #edc950;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3968253968),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2380952381);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3968253968), inset 0 0 0 1px rgba(255, 255, 255, 0.2380952381);
 }
 
 .tile-1024 {
   color: #f9f6f2;
   background: #edc53f;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.4761904762),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2857142857);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.4761904762), inset 0 0 0 1px rgba(255, 255, 255, 0.2857142857);
 }
 
-.tile-2048 .tile-inner {
+.tile-2048 {
   color: #f9f6f2;
   background: #edc22e;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.5555555556),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.3333333333);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.5555555556), inset 0 0 0 1px rgba(255, 255, 255, 0.3333333333);
 }
-/*styles for pop-ups*/
 
 .overlay {
   display: none;
   opacity: 0;
+  z-index: 100;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 100;
   cursor: pointer;
-  transition: opacity 600ms;
 }
 
 .popup {
   display: none;
   opacity: 0;
-
+  z-index: 101;
   width: 50vw;
   height: 50vh;
   position: fixed;
   top: 25vh;
   left: 25vw;
-  z-index: 101;
-
   background-color: white;
   padding: 2vmin;
   border-radius: 6px;
@@ -249,7 +234,6 @@ h2 {
     opacity: 0.8;
   }
 }
-
 .for-call-popup {
   display: none;
 }
@@ -258,9 +242,11 @@ h2 {
   align-self: flex-end;
   opacity: 0.3;
   cursor: pointer;
-  z-index: 102;
+  z-index: 103;
 }
 
 .popup-close-btn:hover {
   opacity: 1;
 }
+
+/*# sourceMappingURL=styles.css.map */

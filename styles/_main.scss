@@ -1,0 +1,36 @@
+.mainframe {
+  position: relative;
+  margin: 0 auto;
+  width: 80vmin;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.game-field {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 1.5vmin;
+  width: 80vmin;
+  height: 80vmin;
+  background-color: #dbd7d2;
+  border: 2px solid black;
+  border-radius: 0.4em;
+
+  .row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 100%;
+    height: 25%;
+
+    .tile {
+      display: flex;
+      background-color: snow;
+      width: 20%;
+      height: 80%;
+      border: 0px solid snow;
+      border-radius: 0.4em;
+    }
+  }
+}

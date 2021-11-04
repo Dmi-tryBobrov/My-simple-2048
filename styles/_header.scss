@@ -1,0 +1,29 @@
+.intro {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  background: #776e65;
+  color: #faf8ef;
+  border: 1px solid snow;
+  border-radius: 0.2em;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.3em 0.9em;
+  &:hover {
+    background: burlywood;
+  }
+}
+
+h2 {
+  text-align: center;
+  vertical-align: bottom;
+  strong {
+    font-size: 3em;
+  }
+}
+
+.game-title {
+  align-self: flex-start;
+}
