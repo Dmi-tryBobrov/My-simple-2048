@@ -46,7 +46,6 @@ button:hover {
 .inner-link,
 .link-new-game {
   font-style: inherit;
-  font-size: 1.1em;
   font-weight: bold;
   color: inherit;
   line-height: 150%;
@@ -96,6 +95,16 @@ h2 strong {
   height: 80%;
   border: 0px solid snow;
   border-radius: 0.4em;
+}
+
+.game-rules {
+  line-height: 1.5;
+  border-bottom: 1px solid lightpink;
+}
+
+.footer {
+  line-height: 150%;
+  text-align: center;
 }
 
 .tile-new,
