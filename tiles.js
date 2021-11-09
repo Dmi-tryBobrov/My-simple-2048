@@ -1,4 +1,6 @@
 export {createTile, moveUp, moveRight, moveDown, moveLeft, initializeField};
+export {rows}
+import { isLost } from "./utils.js";
 
 var positionsAll = new Map();
 //positionOccupied -> key: "row,col", value:boolean
@@ -13,16 +15,20 @@ function initializeField(){
         for(let col=0; col<4; col++, i++){
             positionsAll.set(i, [row, col]);
             //to make keys in map immutable
-            positionsOccupied.set([row, col].toString(), false);
+            positionsOccupied.set([row, col].toString(), false);//change to false
         }
     }
+    // positionsOccupied.set([0, 2].toString(), true);
+    // positionsOccupied.set([0, 3].toString(), true);
 }
 
  function createTile(){
     obtainFreePositions();
 
-    if(positionsFree.length === 0)
+    if(positionsFree.length === 0){
+        isLost();
         return;
+    }
 
     let index = Math.floor(Math.random()*positionsFree.length);
     
@@ -48,6 +54,7 @@ function moveUp(){
                 while(positionsOccupied.get([newRow-1, currentColumn].toString()) === false
                     && newRow > 0){
                     newRow--;
+                      
                 }
 
                 if(newRow > 0 &&
@@ -57,9 +64,10 @@ function moveUp(){
                         mergeTiles(newRow-1, currentColumn);
                     }
                 else if(newRow !== currentRow) {
-                    changeTilePosition(newRow, currentColumn,
-                        rows[currentRow].children[currentColumn].textContent);
-                    removeTile(currentRow, currentColumn);
+                    // changeTilePosition(newRow, currentColumn,
+                    //     rows[currentRow].children[currentColumn].textContent);
+                    // removeTile(currentRow, currentColumn);
+                    changeTilePosition(currentRow, currentColumn, newRow, currentColumn);
                 }
             }
         }
@@ -88,9 +96,10 @@ function moveDown(){
                         mergeTiles(newRow+1, currentColumn);
                     }
                 else if(newRow !== currentRow) {
-                    changeTilePosition(newRow, currentColumn,
-                        rows[currentRow].children[currentColumn].textContent);
-                    removeTile(currentRow, currentColumn);
+                    // changeTilePosition(newRow, currentColumn,
+                    //     rows[currentRow].children[currentColumn].textContent);
+                    // removeTile(currentRow, currentColumn);
+                    changeTilePosition(currentRow, currentColumn, newRow, currentColumn);
                 }
             }
         }
@@ -119,9 +128,10 @@ function moveRight(){
                         mergeTiles(currentRow, newColumn+1);
                     }
                 else if(newColumn !== currentColumn) {
-                    changeTilePosition(currentRow, newColumn,
-                        rows[currentRow].children[currentColumn].textContent);
-                    removeTile(currentRow, currentColumn);
+                    // changeTilePosition(currentRow, newColumn,
+                    //     rows[currentRow].children[currentColumn].textContent);
+                    // removeTile(currentRow, currentColumn);
+                    changeTilePosition(currentRow, currentColumn, currentRow, newColumn);
                 }
             }
         }
@@ -150,9 +160,10 @@ function moveLeft(){
                         mergeTiles(currentRow, newColumn-1);
                     }
                 else if(newColumn !== currentColumn) {
-                    changeTilePosition(currentRow, newColumn,
-                        rows[currentRow].children[currentColumn].textContent);
-                    removeTile(currentRow, currentColumn);
+                    // changeTilePosition(currentRow, newColumn,
+                    //     rows[currentRow].children[currentColumn].textContent);
+                    // removeTile(currentRow, currentColumn);
+                    changeTilePosition(currentRow, currentColumn, currentRow, newColumn);
                 }
             }
         }
@@ -200,12 +211,15 @@ function mergeTiles(row, col){
     positionsOccupied.set([row, col].toString(), true);
 }
 
-function changeTilePosition(row, col, text){
-    let newTile = document.createElement("div");
-    newTile.textContent = text;
-    newTile.setAttribute("class", "tile-new");
-    newTile.classList.add("tile-"+text);
-    rows[row].children[col].appendChild(newTile);
+function changeTilePosition(row, col, newRow, newCol){
+    // let newTile = document.createElement("div");
+    // newTile.textContent = text;
+    // newTile.setAttribute("class", "tile-new");
+    // newTile.classList.add("tile-"+text);
+    // rows[row].children[col].appendChild(newTile);
 
-    positionsOccupied.set([row, col].toString(), true);
+    let tile = rows[row].children[col].removeChild(rows[row].children[col].firstChild);
+    rows[newRow].children[newCol].appendChild(tile);
+    positionsOccupied.set([row, col].toString(), false);
+    positionsOccupied.set([newRow, newCol].toString(), true);
 }

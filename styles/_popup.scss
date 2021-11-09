@@ -63,3 +63,12 @@ $base-index: 100;
 .popup-close-btn:hover {
   opacity: 1;
 }
+
+.popup-lost-msg,
+.popup-win-msg {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
