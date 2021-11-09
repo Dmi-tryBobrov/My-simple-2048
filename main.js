@@ -1,9 +1,6 @@
 import {createTile, moveUp, moveRight, moveDown, moveLeft, initializeField} from "./tiles.js";
 
 const buttonNewGame = document.querySelector(".button-new-game");
-const tileIndexMin = 0;
-const tileIndexMax = 15;
-var tilePositions = new Map();
 
 buttonNewGame.addEventListener("click", () => {
     startNewGame();
@@ -22,19 +19,19 @@ function startNewGame(){
 
 window.addEventListener("keydown", (e) =>{
     switch (e.code){
-        case "KeyW" || "ArrowUp":
+        case "KeyW":
             moveUp();     
             break;
             
-        case "KeyD" || "ArrowRight":
+        case "KeyD":
             moveRight();
             break;
 
-        case "KeyA" || "ArrowLeft":
+        case "KeyA":
             moveLeft();
             break;  
 
-        case "KeyS" || "ArrowDown":
+        case "KeyS":
             moveDown();
             break;
     }

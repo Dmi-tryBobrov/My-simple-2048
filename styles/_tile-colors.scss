@@ -1,0 +1,70 @@
+// @mixin shadow-out-128-2048($color-out: rgb(243, 215, 116)){
+//     box-shadow: 0 0 30px 10px rgba($color-out, 0.14);
+// }
+
+// @function change-alpha
+// .tile-2 {
+//   background: lightcoral;
+//   color: snow;
+// }
+.tile-2 {
+  background-color: lightcoral;
+  color: snow;
+}
+
+.tile-4 {
+  background: bisque;
+  color: burlywood;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 5%),
+    inset 0 0 0 1px rgba(255, 255, 255, 5%);
+}
+.tile-8 {
+  color: #f9f6f2;
+  background: #f3b27a;
+}
+.tile-16 {
+  color: #f9f6f2;
+  background: #f69664;
+}
+.tile-32 {
+  color: #f9f6f2;
+  background: #f77c5f;
+}
+.tile-64 {
+  color: #f9f6f2;
+  background: #f75f3b;
+}
+.tile-128 {
+  color: #f9f6f2;
+  background: #edd073;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2380952381),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1428571429);
+}
+
+.tile-256 {
+  color: #f9f6f2;
+  background: #edcc62;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3174603175),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1904761905);
+}
+
+.tile-512 {
+  color: #f9f6f2;
+  background: #edc950;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3968253968),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2380952381);
+}
+
+.tile-1024 {
+  color: #f9f6f2;
+  background: #edc53f;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.4761904762),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2857142857);
+}
+
+.tile-2048 {
+  color: #f9f6f2;
+  background: #edc22e;
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.5555555556),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3333333333);
+}

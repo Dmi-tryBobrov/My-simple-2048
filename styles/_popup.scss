@@ -1,0 +1,65 @@
+@use "sass:math";
+$base-index: 100;
+@mixin hidden($order: 0) {
+  display: none;
+  opacity: 0;
+  z-index: $base-index + $order;
+}
+
+.overlay {
+  @include hidden(0);
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+}
+
+.popup {
+  @include hidden(1);
+
+  width: 50vw;
+  height: 50vh;
+  position: fixed;
+  top: 25vh;
+  left: 25vw;
+
+  background-color: white;
+  padding: 2vmin;
+  border-radius: 6px;
+}
+
+.open {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  animation: showWinPopup 600ms linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes showWinPopup {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+.for-call-popup {
+  display: none;
+}
+
+.popup-close-btn {
+  align-self: flex-end;
+  opacity: 0.3;
+  cursor: pointer;
+  z-index: $base-index + 3;
+}
+
+.popup-close-btn:hover {
+  opacity: 1;
+}
