@@ -39,6 +39,19 @@ button:hover {
   background: burlywood;
 }
 
+.button-new-game {
+  align-self: center;
+}
+
+.inner-link,
+.link-new-game {
+  font-style: inherit;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: inherit;
+  line-height: 150%;
+}
+
 h2 {
   text-align: center;
   vertical-align: bottom;
@@ -137,7 +150,8 @@ h2 strong {
 .tile-4 {
   background: bisque;
   color: burlywood;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .tile-8 {
@@ -163,31 +177,36 @@ h2 strong {
 .tile-128 {
   color: #f9f6f2;
   background: #edd073;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2380952381), inset 0 0 0 1px rgba(255, 255, 255, 0.1428571429);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2380952381),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1428571429);
 }
 
 .tile-256 {
   color: #f9f6f2;
   background: #edcc62;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3174603175), inset 0 0 0 1px rgba(255, 255, 255, 0.1904761905);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3174603175),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1904761905);
 }
 
 .tile-512 {
   color: #f9f6f2;
   background: #edc950;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3968253968), inset 0 0 0 1px rgba(255, 255, 255, 0.2380952381);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.3968253968),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2380952381);
 }
 
 .tile-1024 {
   color: #f9f6f2;
   background: #edc53f;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.4761904762), inset 0 0 0 1px rgba(255, 255, 255, 0.2857142857);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.4761904762),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2857142857);
 }
 
 .tile-2048 {
   color: #f9f6f2;
   background: #edc22e;
-  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.5555555556), inset 0 0 0 1px rgba(255, 255, 255, 0.3333333333);
+  box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.5555555556),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.3333333333);
 }
 
 .overlay {

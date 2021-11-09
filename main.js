@@ -3,8 +3,14 @@ import {startNewGame, is2048} from "./utils.js";
 
 const keys = ["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"];
 const buttonNewGame = document.querySelector(".button-new-game");
+const linkNewGame = document.querySelector(".link-new-game");
 
 buttonNewGame.addEventListener("click", () => {
+    buttonNewGame.scrollIntoView(true);
+    startNewGame();
+});
+
+linkNewGame.addEventListener("click", () => {
     buttonNewGame.scrollIntoView(true);
     startNewGame();
 });
