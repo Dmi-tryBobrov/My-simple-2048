@@ -1,11 +1,12 @@
-export {animateTile, createVectors, animateTiles, key_pressed};
-import { rows, changeTilePosition, createTile } from "./tiles.js";
+export {animateTile, createVectors, createMergeVectors, animateTiles, key_pressed};
+import { rows, changeTilePosition, createTile, mergeTiles } from "./tiles.js";
 
 const timeInterval = 100;
 let timeStart, previousTimeStamp;
 let topChange, leftChange;
 let tile, rectFrom, rectTo, rAF;
 let vectors = [];
+let mergeVectors = [];
 let tilesArr = [];
 let key_pressed = false;
 
@@ -66,6 +67,17 @@ class Vector{
     }
 }
 
+class MergeVector{
+    constructor(x, y){
+        this.x = x;
+        this.y = y;
+    }
+}
+
+function createMergeVectors(row, col){
+    mergeVectors.push(new MergeVector(row, col));
+}
+
 function createVectors(row, col, newRow, newCol){
     let rectFrom = rows[row].children[col].getBoundingClientRect();
     let rectTo = rows[newRow].children[newCol].getBoundingClientRect();
@@ -75,8 +87,6 @@ function createVectors(row, col, newRow, newCol){
 }
 
 function animateTiles(){
-    if(key_pressed)
-        return;
     for (let i=0; i < vectors.length; i++){
         tilesArr.push(rows[vectors[i].x].children[vectors[i].y].firstElementChild)
     }
@@ -110,9 +120,13 @@ function redrawTilePositions(timestamp){
             tilesArr[i].removeAttribute("style");
             changeTilePosition.call(vectors[i], ...vectors[i].coordinates);
         }
+        for (let j=0; j < mergeVectors.length; j++){
+            mergeTiles.call(mergeVectors[j], mergeVectors[j].x, mergeVectors[j].y);
+        }
         createTile();
         key_pressed = !key_pressed;
         vectors = [];
         tilesArr = [];
+        mergeVectors = [];
     }
 }

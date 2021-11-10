@@ -108,7 +108,8 @@ h2 strong {
 }
 
 .tile-new,
-.tile-merged {
+.tile-merged,
+.tile-moved {
   display: flex;
   justify-content: center;
   align-items: center;

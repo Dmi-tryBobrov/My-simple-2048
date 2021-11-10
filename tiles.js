@@ -1,13 +1,17 @@
 export {createTile, moveUp, moveRight, moveDown, moveLeft, initializeField};
-export {rows, changeTilePosition}
+export {rows, changeTilePosition, mergeTiles}
 import { isLost } from "./utils.js";
-import { animateTile, createVectors, animateTiles } from "./animation.js";
+import { animateTile, createVectors, createMergeVectors, animateTiles } from "./animation.js";
 
-var positionsAll = new Map();
+let positionsAll = new Map();
 //positionOccupied -> key: "row,col", value:boolean
-var positionsOccupied = new Map();
+let positionsOccupied = new Map();
 const rows = document.querySelectorAll(".row");
-var positionsFree = [];
+let positionsFree = [];
+let positionsOcc = [
+    [], [], [], []
+];
+    
 //10% cnance to greate new tile with value 4
 const CHANCE_TO_GET_4 = 0.1;
 
@@ -16,11 +20,9 @@ function initializeField(){
         for(let col=0; col<4; col++, i++){
             positionsAll.set(i, [row, col]);
             //to make keys in map immutable
-            positionsOccupied.set([row, col].toString(), false);//change to false
+            positionsOccupied.set([row, col].toString(), false);//init to false
         }
     }
-    // positionsOccupied.set([0, 2].toString(), true);
-    // positionsOccupied.set([0, 3].toString(), true);
 }
 
  function createTile(){
@@ -55,15 +57,21 @@ function moveUp(){
                 //must not move up if upper cell is occupied
                 while(positionsOccupied.get([newRow-1, currentColumn].toString()) === false
                     && newRow > 0){
+                    positionsOccupied.set([newRow, currentColumn].toString(), false);
                     newRow--;
+                    positionsOccupied.set([newRow, currentColumn].toString(), true);
                       
                 }
 
                 if(newRow > 0 &&
-                    (rows[currentRow].children[currentColumn].textContent == 
+                    (rows[currentRow].children[currentColumn].textContent === 
                     rows[newRow-1].children[currentColumn].textContent)){
-                        removeTile(currentRow, currentColumn);
-                        mergeTiles(newRow-1, currentColumn);
+                        createVectors(currentRow, currentColumn, newRow-1, currentColumn);
+                        createMergeVectors(newRow-1, currentColumn);
+                        positionsOccupied.set([newRow, currentColumn].toString(), false);
+                        positionsOccupied.set([newRow-1, currentColumn].toString(), true);
+                        // removeTile(currentRow, currentColumn);
+                        // mergeTiles(newRow-1, currentColumn);
                     }
                 else if(newRow !== currentRow) {
                     // changeTilePosition(newRow, currentColumn,
@@ -89,14 +97,20 @@ function moveDown(){
                 //must not move down if lower cell is occupied
                 while(positionsOccupied.get([newRow+1, currentColumn].toString()) === false
                     && newRow < 3){
+                    positionsOccupied.set([newRow, currentColumn].toString(), false);
                     newRow++;
+                    positionsOccupied.set([newRow, currentColumn].toString(), true);
                 }
 
                 if(newRow < 3 &&
                     (rows[currentRow].children[currentColumn].textContent == 
                     rows[newRow+1].children[currentColumn].textContent)){
-                        removeTile(currentRow, currentColumn);
-                        mergeTiles(newRow+1, currentColumn);
+                        createVectors(currentRow, currentColumn, newRow+1, currentColumn);
+                        createMergeVectors(newRow+1, currentColumn);
+                        positionsOccupied.set([newRow, currentColumn].toString(), false);
+                        positionsOccupied.set([newRow+1, currentColumn].toString(), true);
+                        // removeTile(currentRow, currentColumn);
+                        // mergeTiles(newRow+1, currentColumn);
                     }
                 else if(newRow !== currentRow) {
                     // changeTilePosition(newRow, currentColumn,
@@ -122,14 +136,20 @@ function moveRight(){
                 //must not move down if lower cell is occupied
                 while(positionsOccupied.get([currentRow, newColumn+1].toString()) === false
                     && newColumn < 3){
+                    positionsOccupied.set([currentRow, newColumn].toString(), false);
                     newColumn++;
+                    positionsOccupied.set([currentRow, newColumn].toString(), true);
                 }
 
                 if(newColumn < 3 &&
                     (rows[currentRow].children[currentColumn].textContent == 
                     rows[currentRow].children[newColumn+1].textContent)){
-                        removeTile(currentRow, currentColumn);
-                        mergeTiles(currentRow, newColumn+1);
+                        createVectors(currentRow, currentColumn, currentRow, newColumn+1);
+                        createMergeVectors(currentRow, newColumn+1);
+                        positionsOccupied.set([currentRow, newColumn].toString(), false);
+                        positionsOccupied.set([currentRow, newColumn+1].toString(), true);
+                        // removeTile(currentRow, currentColumn);
+                        // mergeTiles(currentRow, newColumn+1);
                     }
                 else if(newColumn !== currentColumn) {
                     // changeTilePosition(currentRow, newColumn,
@@ -156,14 +176,27 @@ function moveLeft(){
                 //must not move down if lower cell is occupied
                 while(positionsOccupied.get([currentRow, newColumn-1].toString()) === false
                     && newColumn > 0){
+                    positionsOccupied.set([currentRow, newColumn].toString(), false);
                     newColumn--;
+                    positionsOccupied.set([currentRow, newColumn].toString(), true);
                 }
 
                 if(newColumn > 0 &&
-                    (rows[currentRow].children[currentColumn].textContent == 
+                    (rows[currentRow].children[currentColumn].textContent === 
                     rows[currentRow].children[newColumn-1].textContent)){
-                        removeTile(currentRow, currentColumn);
-                        mergeTiles(currentRow, newColumn-1);
+                        // if(!rows[currentRow].children[newColumn-1].firstElementChild.classList.contains("stop")){
+                        //     createVectors(currentRow, currentColumn, currentRow, newColumn-1);
+                        //     createMergeVectors(currentRow, newColumn-1);
+                        //     rows[currentRow].children[newColumn-1].firstElementChild.classList.add("stop");
+                        // }
+                        createVectors(currentRow, currentColumn, currentRow, newColumn-1);
+                        createMergeVectors(currentRow, newColumn-1);
+                    
+                            
+                        positionsOccupied.set([currentRow, newColumn].toString(), false);
+                        positionsOccupied.set([currentRow, newColumn-1].toString(), true);
+                        // removeTile(currentRow, currentColumn);
+                        // mergeTiles(currentRow, newColumn-1);
                     }
                 else if(newColumn !== currentColumn) {
                     // changeTilePosition(currentRow, newColumn,
@@ -206,37 +239,37 @@ function obtainFreePositions(){
             positionsFree.push(i);
         }
     }
+    // for(let row=0, i=0; row<4; row++){
+    //     for(let col=0; col<4; col++, i++){
+    //         if(positionsOcc[row][col][0] === false)
+    //             positi
+    //         positionsOcc[row][col][1].push(undefined);
+    //     }
+    // }
 }
 
 function mergeTiles(row, col){
-    let value = rows[row].children[col].textContent;
+    //tile inner value doubles on merge
+    let value = parseInt(rows[row].children[col].textContent)*2;
     let startTile = document.createElement("div");
-    startTile.textContent = (parseInt(value)*2).toString();
+    startTile.textContent = (value).toString();
     startTile.setAttribute("class", "tile-merged");
-    startTile.classList.add("tile-"+(parseInt(value)*2).toString());
+    startTile.classList.add("tile-"+(value).toString());
     rows[row].children[col].replaceChild(startTile, rows[row].children[col].firstChild);
 
     positionsOccupied.set([row, col].toString(), true);
 }
 
-async function changeTilePosition(row, col, newRow, newCol){
-    // let newTile = document.createElement("div");
-    // newTile.textContent = text;
-    // newTile.setAttribute("class", "tile-new");
-    // newTile.classList.add("tile-"+text);
-    // rows[row].children[col].appendChild(newTile);
-
-    // animateTile(row, col, newRow, newCol)
-    // .then(response => {
-    //     console.log(response);
-    //     let tile = rows[row].children[col].removeChild(rows[row].children[col].firstChild);
-    //     tile.removeAttribute("style");
-    //     rows[newRow].children[newCol].appendChild(tile);
-    //     positionsOccupied.set([row, col].toString(), false);
-    //     positionsOccupied.set([newRow, newCol].toString(), true);
-    // });
+function changeTilePosition(row, col, newRow, newCol){
     let tile = rows[row].children[col].removeChild(rows[row].children[col].firstChild);
-    rows[newRow].children[newCol].appendChild(tile);
+    tile.classList.remove("tile-new");
+    tile.classList.add("tile-moved");
+
+    if(!rows[newRow].children[newCol].firstChild)
+        rows[newRow].children[newCol].appendChild(tile);
+    else
+        rows[newRow].children[newCol].replaceChild(tile, rows[newRow].children[newCol].firstChild);
+
     positionsOccupied.set([row, col].toString(), false);
     positionsOccupied.set([newRow, newCol].toString(), true);
 }
@@ -262,3 +295,19 @@ async function changeTilePosition(row, col, newRow, newCol){
 //     }, timeInterval);
 
 // }
+
+// let newTile = document.createElement("div");
+    // newTile.textContent = text;
+    // newTile.setAttribute("class", "tile-new");
+    // newTile.classList.add("tile-"+text);
+    // rows[row].children[col].appendChild(newTile);
+
+    // animateTile(row, col, newRow, newCol)
+    // .then(response => {
+    //     console.log(response);
+    //     let tile = rows[row].children[col].removeChild(rows[row].children[col].firstChild);
+    //     tile.removeAttribute("style");
+    //     rows[newRow].children[newCol].appendChild(tile);
+    //     positionsOccupied.set([row, col].toString(), false);
+    //     positionsOccupied.set([newRow, newCol].toString(), true);
+    // });
