@@ -1,6 +1,7 @@
 export {createTile, moveUp, moveRight, moveDown, moveLeft, initializeField};
-export {rows}
+export {rows, changeTilePosition}
 import { isLost } from "./utils.js";
+import { animateTile, createVectors, animateTiles } from "./animation.js";
 
 var positionsAll = new Map();
 //positionOccupied -> key: "row,col", value:boolean
@@ -26,6 +27,7 @@ function initializeField(){
     obtainFreePositions();
 
     if(positionsFree.length === 0){
+        //check if there is a game over since no more space available
         isLost();
         return;
     }
@@ -67,13 +69,14 @@ function moveUp(){
                     // changeTilePosition(newRow, currentColumn,
                     //     rows[currentRow].children[currentColumn].textContent);
                     // removeTile(currentRow, currentColumn);
-                    changeTilePosition(currentRow, currentColumn, newRow, currentColumn);
+                    createVectors(currentRow, currentColumn, newRow, currentColumn);
+                    // setTimeout(changeTilePosition, 800, currentRow, currentColumn, newRow, currentColumn);
                 }
             }
         }
     }
-
-    createTile();
+    animateTiles();
+    
 }
 
 function moveDown(){
@@ -99,13 +102,14 @@ function moveDown(){
                     // changeTilePosition(newRow, currentColumn,
                     //     rows[currentRow].children[currentColumn].textContent);
                     // removeTile(currentRow, currentColumn);
-                    changeTilePosition(currentRow, currentColumn, newRow, currentColumn);
+                    // changeTilePosition(currentRow, currentColumn, newRow, currentColumn);
+                    createVectors(currentRow, currentColumn, newRow, currentColumn);
                 }
             }
         }
     }
 
-    createTile();
+    animateTiles();
 }
 
 function moveRight(){
@@ -131,13 +135,15 @@ function moveRight(){
                     // changeTilePosition(currentRow, newColumn,
                     //     rows[currentRow].children[currentColumn].textContent);
                     // removeTile(currentRow, currentColumn);
-                    changeTilePosition(currentRow, currentColumn, currentRow, newColumn);
+                    // changeTilePosition(currentRow, currentColumn, currentRow, newColumn);
+                    createVectors(currentRow, currentColumn, currentRow, newColumn);
+
                 }
             }
         }
     }
     
-    createTile();
+    animateTiles();
 }
 
 function moveLeft(){
@@ -163,13 +169,15 @@ function moveLeft(){
                     // changeTilePosition(currentRow, newColumn,
                     //     rows[currentRow].children[currentColumn].textContent);
                     // removeTile(currentRow, currentColumn);
-                    changeTilePosition(currentRow, currentColumn, currentRow, newColumn);
+                    // changeTilePosition(currentRow, currentColumn, currentRow, newColumn);
+                    createVectors(currentRow, currentColumn, currentRow, newColumn);
+
                 }
             }
         }
     }
 
-    createTile();
+    animateTiles();
 }
 
 function setNewTile(row, col, tileText="2"){
@@ -211,15 +219,46 @@ function mergeTiles(row, col){
     positionsOccupied.set([row, col].toString(), true);
 }
 
-function changeTilePosition(row, col, newRow, newCol){
+async function changeTilePosition(row, col, newRow, newCol){
     // let newTile = document.createElement("div");
     // newTile.textContent = text;
     // newTile.setAttribute("class", "tile-new");
     // newTile.classList.add("tile-"+text);
     // rows[row].children[col].appendChild(newTile);
 
+    // animateTile(row, col, newRow, newCol)
+    // .then(response => {
+    //     console.log(response);
+    //     let tile = rows[row].children[col].removeChild(rows[row].children[col].firstChild);
+    //     tile.removeAttribute("style");
+    //     rows[newRow].children[newCol].appendChild(tile);
+    //     positionsOccupied.set([row, col].toString(), false);
+    //     positionsOccupied.set([newRow, newCol].toString(), true);
+    // });
     let tile = rows[row].children[col].removeChild(rows[row].children[col].firstChild);
     rows[newRow].children[newCol].appendChild(tile);
     positionsOccupied.set([row, col].toString(), false);
     positionsOccupied.set([newRow, newCol].toString(), true);
 }
+
+
+// async function redrawTilePosition(changeX, changeY){
+//     let timeStart = Date.now();
+//     let deltaY = 0; let deltaX = 0;
+
+//     let timer = setInterval(() => {
+//         let timeElapsed = Date.now() - timeStart;
+
+//         if(timeElapsed > 100){
+//             clearInterval(timer);
+//             return "fulfilled redraw";
+//         }
+
+//         deltaX += changeX;
+//         deltaY += changeY;
+//         tile.style.top = deltaY.toString()+"px";
+//         tile.style.left = deltaX.toString()+"px";
+      
+//     }, timeInterval);
+
+// }
