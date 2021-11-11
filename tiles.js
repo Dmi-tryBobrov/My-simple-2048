@@ -8,7 +8,7 @@ let positionsAll = new Map();
 let positionsOccupied = new Map();
 const rows = document.querySelectorAll(".row");
 let positionsFree = [];
-let positionsOcc = [
+let positionsVal = [
     [], [], [], []
 ];
     
@@ -21,8 +21,10 @@ function initializeField(){
             positionsAll.set(i, [row, col]);
             //to make keys in map immutable
             positionsOccupied.set([row, col].toString(), false);//init to false
+            positionsVal[row][col]=0;
         }
     }
+    console.log(positionsVal);
 }
 
  function createTile(){
@@ -58,18 +60,24 @@ function moveUp(){
                 while(positionsOccupied.get([newRow-1, currentColumn].toString()) === false
                     && newRow > 0){
                     positionsOccupied.set([newRow, currentColumn].toString(), false);
+                    let tmp = positionsVal[newRow][currentColumn];
+                    positionsVal[newRow][currentColumn] = 0;
                     newRow--;
                     positionsOccupied.set([newRow, currentColumn].toString(), true);
-                      
+                    positionsVal[newRow][currentColumn] = tmp;
                 }
-
+                // rows[currentRow].children[currentColumn].textContent === 
+                // rows[newRow-1].children[currentColumn].textContent)
                 if(newRow > 0 &&
-                    (rows[currentRow].children[currentColumn].textContent === 
-                    rows[newRow-1].children[currentColumn].textContent)){
+                    (positionsVal[newRow][currentColumn] === 
+                        positionsVal[newRow-1][currentColumn])){
                         createVectors(currentRow, currentColumn, newRow-1, currentColumn);
                         createMergeVectors(newRow-1, currentColumn);
                         positionsOccupied.set([newRow, currentColumn].toString(), false);
+                        let tmp = positionsVal[newRow][currentColumn];
+                        positionsVal[newRow][currentColumn] = 0;
                         positionsOccupied.set([newRow-1, currentColumn].toString(), true);
+                        positionsVal[newRow-1][currentColumn] = (parseInt(tmp)*2).toString();
                         // removeTile(currentRow, currentColumn);
                         // mergeTiles(newRow-1, currentColumn);
                     }
@@ -221,6 +229,8 @@ function setNewTile(row, col, tileText="2"){
     rows[row].children[col].appendChild(startTile);
 
     positionsOccupied.set([row, col].toString(), true);
+    positionsVal[row][col]=tileText;
+    console.log(positionsVal);
 }
 
 function removeTile(row, col){
@@ -258,13 +268,15 @@ function mergeTiles(row, col){
     rows[row].children[col].replaceChild(startTile, rows[row].children[col].firstChild);
 
     positionsOccupied.set([row, col].toString(), true);
+    positionsVal[row][col]=value.toString();
+    console.log(positionsVal);
 }
 
 function changeTilePosition(row, col, newRow, newCol){
     let tile = rows[row].children[col].removeChild(rows[row].children[col].firstChild);
     tile.classList.remove("tile-new");
     tile.classList.add("tile-moved");
-
+    let text = tile.textContent;
     if(!rows[newRow].children[newCol].firstChild)
         rows[newRow].children[newCol].appendChild(tile);
     else
@@ -272,6 +284,9 @@ function changeTilePosition(row, col, newRow, newCol){
 
     positionsOccupied.set([row, col].toString(), false);
     positionsOccupied.set([newRow, newCol].toString(), true);
+    positionsVal[newRow][newCol]=text;
+    positionsVal[row][col] = 0;
+    console.log(positionsVal);
 }
 
 
