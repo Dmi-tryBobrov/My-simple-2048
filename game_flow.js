@@ -29,18 +29,20 @@ function isLost(){
     //max row/col number === 3
     for(let row=0; row < 3; row++){
         for(let col=0; col < 3; col++){
-                if(rows[row].children[col].textContent == 
+                if(rows[row].children[col].textContent === 
                     rows[row+1].children[col].textContent)
                         flag_is_lost = false; //can merge two cells - not yet lost
                     
-                if(rows[row].children[col].textContent == 
+                if(rows[row].children[col].textContent === 
                     rows[row].children[col+1].textContent)
                         flag_is_lost = false; //can merge two cells - not yet lost
                 
-                if(row!==2)
-                    continue;
-                //chech for the last row
-                else if(rows[row+1].children[col].textContent == 
+                //check for the last row
+                if(row === 2 && rows[row+1].children[col].textContent === 
+                    rows[row+1].children[col+1].textContent)
+                    flag_is_lost = false;
+                //check for the last col
+                if(col === 2 && rows[row].children[col+1].textContent ===
                     rows[row+1].children[col+1].textContent)
                         flag_is_lost = false;        
         }

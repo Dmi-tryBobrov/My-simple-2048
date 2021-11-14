@@ -1,5 +1,5 @@
-import {createTile, moveUp, moveRight, moveDown, moveLeft, initializeField} from "./tiles.js";
-import {startNewGame, is2048} from "./utils.js";
+import {moveUp, moveRight, moveDown, moveLeft} from "./tiles.js";
+import {startNewGame, is2048} from "./game_flow.js";
 import {key_pressed} from "./animation.js";
 
 const keys = ["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"];

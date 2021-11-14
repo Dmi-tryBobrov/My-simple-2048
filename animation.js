@@ -1,57 +1,13 @@
-export {animateTile, createVectors, createMergeVectors, animateTiles, key_pressed};
+export {createVectors, createMergeVectors, animateTiles, key_pressed};
 import { rows, changeTilePosition, createTile, mergeTiles } from "./tiles.js";
 
 const timeInterval = 100;
 let timeStart, previousTimeStamp;
-let topChange, leftChange;
-let tile, rectFrom, rectTo, rAF;
 let vectors = [];
 let mergeVectors = [];
 let tilesArr = [];
 let key_pressed = false;
 
-function animateTile(row, col, newRow, newCol){
-    
-    
-
-    tile = rows[row].children[col].firstElementChild;
-    rectFrom = rows[row].children[col].getBoundingClientRect();
-    rectTo = rows[newRow].children[newCol].getBoundingClientRect();
-    tile.style.cssText = "position:relative";
-    tile.style.width = rectFrom.width.toString()+"px";
-    tile.style.height = rectFrom.height.toString()+"px";
-    console.log(tile.style.cssText);
-
-    topChange = rectTo.top - rectFrom.top;
-    leftChange = rectTo.left - rectFrom.left;
-    
-    requestAnimationFrame(redrawTilePosition);
-
-}
-
-function redrawTilePosition(timestamp){
-    if(!timeStart)
-        timeStart = timestamp;
-    const timeElapsed = timestamp - timeStart;
-    console.log(timeElapsed);
-
-    if(previousTimeStamp !== timestamp){
-        const changeX = timeElapsed*leftChange/timeInterval;
-        const changeY = timeElapsed*topChange/timeInterval;
-        tile.style.transform = 'translate(' + changeX + 'px,' + changeY + 'px)';
-        // tile.style.transform = 'translateY(' + changeY + 'px)';
-    }
-
-    if (timeElapsed < timeInterval){
-        previousTimeStamp = timestamp;
-        requestAnimationFrame(redrawTilePosition);
-    }
-    else{
-        tile.removeAttribute("style");
-        timeStart = null;
-        // cancelAnimationFrame(rAF);
-    }
-}
 
 class Vector{
     constructor(x, y, newX, newY, deltaX, deltaY){
@@ -98,7 +54,7 @@ function redrawTilePositions(timestamp){
     if(!timeStart)
         timeStart = timestamp;
     const timeElapsed = timestamp - timeStart;
-    console.log(timeElapsed);
+    // console.log(timeElapsed);
     
 
     if(previousTimeStamp !== timestamp){
@@ -117,7 +73,8 @@ function redrawTilePositions(timestamp){
     else{
         timeStart = null;
         for (let i=0; i < tilesArr.length; i++){
-            tilesArr[i].removeAttribute("style");
+            // tilesArr[i].removeAttribute("style");
+            tilesArr[i].style = "";
             changeTilePosition.call(vectors[i], ...vectors[i].coordinates);
         }
         for (let j=0; j < mergeVectors.length; j++){
