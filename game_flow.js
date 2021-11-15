@@ -1,5 +1,5 @@
 export {is2048, startNewGame, isLost};
-import {initializeField, createTile, rows} from "./tiles.js";
+import {initializeField, createTile, rows, storeSessionData} from "./tiles.js";
 
 function startNewGame(){
     initializeField();
@@ -10,6 +10,7 @@ function startNewGame(){
     //create 2 tiles to speed up the begginning of a game
     createTile();
     createTile();
+    storeSessionData(true);
 }
 
 function is2048() {

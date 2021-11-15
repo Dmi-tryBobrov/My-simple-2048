@@ -1,5 +1,6 @@
 export {createTile, moveUp, moveRight, moveDown, moveLeft, initializeField};
-export {rows, changeTilePosition, mergeTiles, storeData, resumeGame};
+export {rows, changeTilePosition, mergeTiles, storeData, resumeGame, undo};
+export {storeSessionData};
 import { isLost } from "./game_flow.js";
 import {createVectors, createMergeVectors, animateTiles } from "./animation.js";
 
@@ -9,6 +10,8 @@ let positionsOccupied = [
     [], [], [], []
 ];
 const rows = document.querySelectorAll(".row");
+// const MAX_UNDO = 20;
+let current_undo = 0;       
 let positionsFree = [];
 let any_tile_moved = false;
 // let positionsVal = [
@@ -314,12 +317,53 @@ function resumeGame(){
         return;
     else{
         let positions = localStorage.getItem("positions");
+        if(positions === 'null')
+            return;
         positionsOccupied = JSON.parse(positions);
 
         for(let row=0, i=0; row<4; row++){
             for(let col=0; col<4; col++, i++){
                 positionsAll.set(i, [row, col]);
                 
+                if(positionsOccupied[row][col].isOccupied)
+                    setNewTile(row, col, positionsOccupied[row][col].value);
+            }
+        }
+    }
+}
+
+
+function storeSessionData(init=false){
+    if(init)
+        current_undo=0;
+    else
+        current_undo++;
+    
+    sessionStorage.setItem("local"+current_undo, JSON.stringify(positionsOccupied));
+    console.log(current_undo);
+}
+
+function undo(){
+    if(sessionStorage.length === 0)
+        return;
+    else{
+        if(current_undo < 1)
+            return;
+        current_undo--;
+        console.log(current_undo);
+        let previous = sessionStorage.getItem("local"+current_undo);
+        if(!previous)
+            return;
+        
+        let gameTiles = document.querySelectorAll(".tile"); 
+        for(let i=0; i<gameTiles.length; i++){
+            gameTiles[i].textContent = "";
+        }
+        positionsOccupied = JSON.parse(previous);
+
+        for(let row=0, i=0; row<4; row++){
+            for(let col=0; col<4; col++, i++){
+
                 if(positionsOccupied[row][col].isOccupied)
                     setNewTile(row, col, positionsOccupied[row][col].value);
             }

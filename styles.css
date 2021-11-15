@@ -43,6 +43,15 @@ button:hover {
   align-self: center;
 }
 
+.button-undo {
+  display: none;
+  float: left;
+  margin: 0 0.1em 0 0;
+}
+.button-undo span {
+  vertical-align: middle;
+}
+
 .inner-link,
 .link-new-game {
   font-style: inherit;

@@ -1,5 +1,5 @@
 export {createVectors, createMergeVectors, animateTiles, key_pressed};
-import { rows, changeTilePosition, createTile, mergeTiles } from "./tiles.js";
+import { rows, changeTilePosition, createTile, mergeTiles, storeSessionData } from "./tiles.js";
 
 const timeInterval = 100;
 let timeStart, previousTimeStamp;
@@ -81,6 +81,7 @@ function redrawTilePositions(timestamp){
             mergeTiles.call(mergeVectors[j], mergeVectors[j].x, mergeVectors[j].y);
         }
         createTile();
+        storeSessionData();
         key_pressed = !key_pressed;
         vectors = [];
         tilesArr = [];
