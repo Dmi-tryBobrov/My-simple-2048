@@ -30,6 +30,10 @@ window.addEventListener("keydown", (e) =>{
     }
     if(key_pressed)
         return;
+    if(e.code == "KeyZ" && (e.ctrlKey || e.metaKey)){
+        undo();
+        return;
+    }
     switch (e.code){
         case "KeyW":
         case "ArrowUp":
