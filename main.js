@@ -1,4 +1,4 @@
-import {moveUp, moveRight, moveDown, moveLeft} from "./tiles.js";
+import {moveUp, moveRight, moveDown, moveLeft, storeData, resumeGame} from "./tiles.js";
 import {startNewGame, is2048} from "./game_flow.js";
 import {key_pressed} from "./animation.js";
 
@@ -45,4 +45,13 @@ window.addEventListener("keydown", (e) =>{
             break;
     }
     is2048();
+});
+
+window.addEventListener("load", () => {
+    resumeGame();
+    buttonNewGame.scrollIntoView(true);
+});
+
+window.addEventListener("beforeunload", () => {
+    storeData();
 });

@@ -1,5 +1,5 @@
 export {createTile, moveUp, moveRight, moveDown, moveLeft, initializeField};
-export {rows, changeTilePosition, mergeTiles}
+export {rows, changeTilePosition, mergeTiles, storeData, resumeGame};
 import { isLost } from "./game_flow.js";
 import {createVectors, createMergeVectors, animateTiles } from "./animation.js";
 
@@ -301,6 +301,28 @@ function updateField(){
         if(positionsFree.length === 0){
             //check if there is a game over since no more space available
             isLost();
+        }
+    }
+}
+
+function storeData(){
+    localStorage.setItem("positions", JSON.stringify(positionsOccupied));
+}
+
+function resumeGame(){
+    if(localStorage.length === 0)
+        return;
+    else{
+        let positions = localStorage.getItem("positions");
+        positionsOccupied = JSON.parse(positions);
+
+        for(let row=0, i=0; row<4; row++){
+            for(let col=0; col<4; col++, i++){
+                positionsAll.set(i, [row, col]);
+                
+                if(positionsOccupied[row][col].isOccupied)
+                    setNewTile(row, col, positionsOccupied[row][col].value);
+            }
         }
     }
 }
