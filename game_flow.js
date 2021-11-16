@@ -14,8 +14,8 @@ function startNewGame(){
 }
 
 function is2048() {
-    let tiles = $(".tile");
-    // let i = 0;
+    let tiles = document.querySelectorAll(".tile");
+ 
     for (let tile of tiles){
         //QA
         // console.log(i, tile.textContent);
@@ -64,11 +64,14 @@ function showWinPopup() {
 
     winPopup.open();
 
-    $(".popup-close-btn").click( () => {
+    const closeBtn = document.querySelector(".popup-close-btn");
+    const tryAgainBtn = document.querySelector(".try-again");
+
+    closeBtn.addEventListener("click", () => {
         winPopup.close();
     });
-    
-    $(".try-again").click( () => {
+
+    tryAgainBtn.addEventListener("click", () => {
         winPopup.close();
         startNewGame();
     });
@@ -83,38 +86,42 @@ function showLostPopup() {
 
     lostPopup.open();
 
-    $(".popup-close-btn").click( () => {
+    const closeBtn = document.querySelector(".popup-close-btn");
+    const tryAgainBtn = document.querySelector(".try-again");
+
+    closeBtn.addEventListener("click", () => {
         lostPopup.close();
     });
-    
-    $(".try-again").click( () => {
+
+    tryAgainBtn.addEventListener("click", () => {
         lostPopup.close();
         startNewGame();
     });
 }
 
-function Popup(Obj) {
-    this.popup = $(Obj.popup);
-    this.content = $(Obj.content);
-    this.overlay = $(Obj.overlay);
+class Popup {
+    constructor(Obj){
+        this.popup = document.querySelector(Obj.popup);
+        this.content = document.querySelector(Obj.content);
+        this.overlay = document.querySelector(Obj.overlay);
+    }
 
-    let pop = this;
+    open() {
+        this.popup.classList.add("open");
+        this.overlay.classList.add("open");
+        this.content.classList.add("visible");
 
-    this.open = () => {
-        pop.popup.addClass("open").fadeIn(1000);
-        pop.overlay.addClass("open");
-        pop.content.addClass("visible");
-    };
+        let pop = this;
 
-    this.close = () => {
-        pop.popup.removeClass("open");
-        pop.overlay.removeClass("open");
-        pop.content.removeClass("visible");
-    };
-
-    this.overlay.click(function(e) {
-        if (!pop.popup.is(e.target) && pop.popup.has(e.target).length === 0) {
+        this.overlay.addEventListener("click", function(e) {
             pop.close();
-        }
-    });
+        });
+        
+    }
+
+    close() {
+        this.popup.classList.remove("open");
+        this.overlay.classList.remove("open");
+        this.content.classList.remove("visible");
+    }
 }
